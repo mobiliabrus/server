@@ -11,7 +11,7 @@ module.exports = {
     const url = 'http://www.hzjyksy.cn/';
     const name = 'hzjyksy';
     const cache = ctx.app.cache[name] ?? [];
-    const browser = await puppeteer.launch({ timeout: 60000 });
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'], timeout: 60000 });
     const page = await browser.newPage();
     await page.goto(url);
     await page.waitForSelector('.article_tab');

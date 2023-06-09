@@ -11,7 +11,7 @@ module.exports = {
     const url = 'https://www.zjzs.net/moban/index/2c9081f061d15b160161d1664ccd0018_tree.html';
     const name = 'shks';
     const cache = ctx.app.cache[name] ?? [];
-    const browser = await puppeteer.launch({ ignoreHTTPSErrors: true });
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'], ignoreHTTPSErrors: true });
     const page = await browser.newPage();
     await page.goto(url);
     await page.waitForSelector('#right_iframe');
