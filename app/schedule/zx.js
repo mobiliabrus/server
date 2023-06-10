@@ -6,18 +6,17 @@ module.exports = {
     immediate: true,
     interval: '60m',
     type: 'worker',
-    disable: true,
+    disable: process.env.NODE_ENV !== 'production',
   },
   async task(ctx) {
-    const url = 'https://www.zjzs.net/moban/index/2c9081f061d15b160161d1661f040016_tree.html';
-    const name = 'zxks';
+    const url = 'https://zhejiang.zikao365.com/';
+    const name = 'zx';
     const cache = ctx.app.cache[name] ?? [];
     const browser = await puppeteer.launch({ args: ['--no-sandbox'], ignoreHTTPSErrors: true });
     const page = await browser.newPage();
     await page.goto(url);
-    await page.waitForSelector('#right_iframe');
-    const frame = page.frames().find(frame => frame.name() === 'right_iframe');
-    const texts = await frame.$$eval('#content > ul > li', elements => elements.map(element => element.textContent));
+    await page.waitForSelector('divnewslist');
+    const texts = await page.$$eval('divnewslist > .list', elements => elements.map(element => element.children[0].children[0].textContent));
     ctx.app.cache[name] = texts;
     const news = texts.filter(text => cache.indexOf(text) === -1);
     if (news.length > 0) {

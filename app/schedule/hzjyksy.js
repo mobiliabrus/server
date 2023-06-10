@@ -6,6 +6,7 @@ module.exports = {
     immediate: true,
     interval: '60m',
     type: 'worker',
+    disable: process.env.NODE_ENV !== 'production',
   },
   async task(ctx) {
     const url = 'http://www.hzjyksy.cn/';
