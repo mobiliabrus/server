@@ -3,7 +3,7 @@ const ChatBot = require('dingtalk-robot-sender');
 
 module.exports = {
   schedule: {
-    interval: '99d',
+    cron: '0 5 7-21 * * ? ',
     type: 'worker',
   },
   async task(ctx) {
