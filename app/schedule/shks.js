@@ -3,10 +3,8 @@ const ChatBot = require('dingtalk-robot-sender');
 
 module.exports = {
   schedule: {
-    immediate: true,
-    interval: '60m',
+    interval: '99d',
     type: 'worker',
-    disable: process.env.NODE_ENV !== 'production',
   },
   async task(ctx) {
     const url = 'https://www.zjzs.net/moban/index/2c9081f061d15b160161d1664ccd0018_tree.html';
