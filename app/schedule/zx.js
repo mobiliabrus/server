@@ -15,6 +15,7 @@ module.exports = {
     await page.goto(url);
     await page.waitForSelector('divnewslist');
     const texts = await page.$$eval('divnewslist > .list', elements => elements.map(element => element.children[0].children[0].textContent));
+    await browser.close();
     ctx.app.cache[name] = texts;
     const news = texts.filter(text => cache.indexOf(text) === -1);
     if (news.length > 0) {
