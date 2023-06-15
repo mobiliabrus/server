@@ -16,6 +16,7 @@ module.exports = {
     await page.waitForSelector('#right_iframe');
     const frame = page.frames().find(frame => frame.name() === 'right_iframe');
     const texts = await frame.$$eval('#content > ul > li', elements => elements.map(element => element.textContent));
+    await browser.close();
     ctx.app.cache[name] = texts;
     const news = texts.filter(text => cache.indexOf(text) === -1);
     if (news.length > 0) {
