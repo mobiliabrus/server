@@ -15,6 +15,7 @@ module.exports = {
     await page.goto(url);
     await page.waitForSelector('#ReportIDname');
     const texts = await page.$$eval('#ReportIDname > a', elements => elements.map(element => element.textContent));
+    await browser.close();
     ctx.app.cache[name] = texts;
     const news = texts.filter(text => cache.indexOf(text) === -1);
     if (news.length > 0) {
