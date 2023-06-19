@@ -1,6 +1,6 @@
 module.exports = {
   schedule: {
-    cron: '0 2 7-21 * * ? ',
+    cron: '0 35 7-21 * * ? ',
     type: 'worker',
     disable: process.env.NODE_ENV === 'development',
   },
@@ -8,8 +8,7 @@ module.exports = {
     const url = 'http://www.hzjyksy.cn/';
     const name = 'hzjyksy';
     const cache = ctx.app.cache[name] ?? [];
-    ctx.service.browser.launch(async page => {
-      await page.goto(url);
+    ctx.service.browser.launch(url, async page => {
       await page.waitForSelector('.article_tab');
       const texts = await page.$$eval('.article_tab > div.bd > div > div.con.cms_show > ul li', elements => elements.map(element => element.children[1].textContent.replace('\n', '(' + element.children[2].textContent + ')')));
       ctx.app.cache[name] = texts;

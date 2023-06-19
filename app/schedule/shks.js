@@ -1,14 +1,13 @@
 module.exports = {
   schedule: {
-    cron: '0 4 7-21 * * ? ',
+    cron: '0 15 7-21 * * ? ',
     type: 'worker',
   },
   async task(ctx) {
     const url = 'https://www.zjzs.net/moban/index/2c9081f061d15b160161d1664ccd0018_tree.html';
     const name = 'shks';
     const cache = ctx.app.cache[name] ?? [];
-    ctx.service.browser.launch(async page => {
-      await page.goto(url);
+    ctx.service.browser.launch(url, async page => {
       await page.waitForSelector('#right_iframe');
       const frame = page.frames().find(frame => frame.name() === 'right_iframe');
       const texts = await frame.$$eval('#content > ul > li', elements => elements.map(element => element.textContent));

@@ -1,14 +1,13 @@
 module.exports = {
   schedule: {
-    cron: '0 6 7-21 * * ? ',
+    cron: '0 25 7-21 * * ? ',
     type: 'worker',
   },
   async task(ctx) {
     const url = 'https://zhejiang.zikao365.com/';
     const name = 'zx';
     const cache = ctx.app.cache[name] ?? [];
-    ctx.service.browser.launch(async page => {
-      await page.goto(url);
+    ctx.service.browser.launch(url, async page => {
       await page.waitForSelector('divnewslist');
       const texts = await page.$$eval('divnewslist > .list', elements => elements.map(element => element.children[0].children[0].textContent));
       ctx.app.cache[name] = texts;

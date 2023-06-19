@@ -1,10 +1,15 @@
 module.exports = {
   schedule: {
-    cron: '0 1 7-21 * * ? ',
+    cron: '0 50 7-21 * * ? ',
     type: 'worker',
-    immediate: true,
   },
   async task(ctx) {
-    ctx.service.ding.markdown('health', 'ok');
+    const content = Object.keys(ctx.app.cache).map(key => {
+      if (ctx.app.cache[key]) return ctx.app.cache[key][0];
+      return '';
+    }).join('\n');
+    if (content.length) {
+      ctx.service.ding.markdown('health', `news:\n${content}`);
+    }
   },
 };
