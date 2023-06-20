@@ -1,6 +1,6 @@
 module.exports = {
   schedule: {
-    ...(process.env.NODE_ENV === 'development' ? { interval: '1m' } : { cron: '0 50 7-21 * * ? ' }),
+    ...(process.env.NODE_ENV === 'development' ? { interval: '1m' } : { cron: '0 8 7-21 * * ? ' }),
     type: 'worker',
   },
   async task(ctx) {

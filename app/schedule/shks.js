@@ -1,6 +1,6 @@
 module.exports = {
   schedule: {
-    cron: '0 15 7-21 * * ? ',
+    cron: '0 4 7-21 * * ? ',
     type: 'worker',
     immediate: process.env.NODE_ENV === 'development',
   },
