@@ -4,9 +4,10 @@ module.exports = {
     type: 'worker',
   },
   async task(ctx) {
+    const hour = new Date().getHours();
     const lastUpdate = ctx.service.cache.read('lastUpdate');
-    const content = Object.keys(lastUpdate).map(key => `${key}: ${lastUpdate[key]}\n`);
+    const content = '#### health\n' + Object.keys(lastUpdate).map(key => `- ${key}: ` + (hour === new Date(lastUpdate[key]).getHours() ? '<font color="#006600">✓</font>' : '<font color="#dd0000">×</font>')).join('\n');
     console.log(content);
-    ctx.service.ding.markdown('health', `lastUpdate:\n${content}`);
+    ctx.service.ding.markdown('health', content);
   },
 };
